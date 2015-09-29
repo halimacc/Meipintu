@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
 
+    private HomePageFragment homePageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         setUpDrawerToggle();
         setupDrawerContent();
+
+        // init fragement
+        if (homePageFragment == null)
+            homePageFragment = new HomePageFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.flContent, homePageFragment)
+                .commit();
     }
 
     private void setupToolbar() {
@@ -47,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpDrawerToggle() {
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawer.setDrawerListener(drawerToggle);
     }
 
@@ -55,17 +63,30 @@ public class MainActivity extends AppCompatActivity {
         NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
         nvDrawer.setNavigationItemSelectedListener(
                 menuItem -> {
-                    switch (menuItem.getItemId()) {
-                        case R.id.nav_homepage:
-                            break;
-                        default:
-                    }
-
-                    menuItem.setChecked(true);
-                    setTitle(menuItem.getTitle());
-                    mDrawer.closeDrawers();
+                    selectMenuItem(menuItem);
                     return true;
                 });
+    }
+
+    private void selectMenuItem(MenuItem menuItem) {
+        Fragment fragment = null;
+
+        switch (menuItem.getItemId()) {
+            case R.id.nav_homepage:
+                if (homePageFragment == null)
+                    homePageFragment = new HomePageFragment();
+                fragment = homePageFragment;
+                break;
+            default:
+        }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flContent, fragment)
+                .commit();
+
+        menuItem.setChecked(true);
+        setTitle(menuItem.getTitle());
+        mDrawer.closeDrawers();
     }
 
     @Override
