@@ -6,6 +6,6 @@
     <string name="drawer_close">Close navigation drawer</string>
     
     <!-- navigation drawer -->
-    <string name="menu_homepage">主页</string>
+    <string name="menu_homepage">首页</string>
 
 </resources>
