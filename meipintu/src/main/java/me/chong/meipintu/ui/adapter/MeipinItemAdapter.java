@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.chong.meipintu.R;
-import me.chong.meipintu.data.model.MeipinItem;
+import me.chong.meipintu.model.MeipinItem;
 
 /**
  * Created by Chong on 2015/9/29.
@@ -28,7 +28,7 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meipin, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meipin, parent, false);
         return new ViewHolder(view);
     }
 

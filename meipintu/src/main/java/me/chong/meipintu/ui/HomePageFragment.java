@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.chong.meipintu.R;
-import me.chong.meipintu.data.model.MeipinItem;
+import me.chong.meipintu.model.MeipinItem;
 import me.chong.meipintu.ui.adapter.MeipinItemAdapter;
 
 /**

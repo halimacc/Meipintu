@@ -1,7 +1,6 @@
 package me.chong.meipintu.ui;
 
 import android.content.res.Configuration;
-import android.databinding.DataBindingUtil;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

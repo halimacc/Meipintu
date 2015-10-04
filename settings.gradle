@@ -1,1 +1,1 @@
-include ':meipintu', ':universalfiledownloader'
+include ':meipintu'

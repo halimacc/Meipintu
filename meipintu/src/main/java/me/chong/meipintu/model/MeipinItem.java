@@ -1,4 +1,4 @@
-package me.chong.meipintu.data.model;
+package me.chong.meipintu.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.List;
  * Created by Chong on 2015/9/29.
  */
 public class MeipinItem {
+    public String title;
     public String pictureUri;
 
     public static List<MeipinItem> generateData() {

@@ -8,4 +8,8 @@
     <!-- navigation drawer -->
     <string name="menu_homepage">首页</string>
 
+
+
+    <string name="title_no_name">无题</string>
+
 </resources>
