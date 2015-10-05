@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.chong.meipintu.R;
-import me.chong.meipintu.model.MeipinItem;
+import me.chong.meipintu.data.api.Meipintu;
+import me.chong.meipintu.data.api.MeipintuRetrofit;
 import me.chong.meipintu.ui.adapter.MeipinItemAdapter;
 
 /**
@@ -19,6 +20,9 @@ import me.chong.meipintu.ui.adapter.MeipinItemAdapter;
 public class HomePageFragment extends Fragment {
 
     private RecyclerView rv_meipin_list;
+    private MeipinItemAdapter meipinItemAdapter;
+
+    private Meipintu meipintu;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -30,10 +34,17 @@ public class HomePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homepage, null);
         rv_meipin_list = (RecyclerView) view.findViewById(R.id.rv_meipin_list);
         rv_meipin_list.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv_meipin_list.setAdapter(new MeipinItemAdapter(MeipinItem.generateData()));
+        meipinItemAdapter = new MeipinItemAdapter();
+        rv_meipin_list.setAdapter(meipinItemAdapter);
+
+        if (meipintu == null) {
+            meipintu = MeipintuRetrofit.getInstance();
+        }
+
+        meipintu.getMeipinItem(0)
+                .subscribe(meipinItems -> meipinItemAdapter.addAll(0, meipinItems));
 
         return view;
     }
-
 
 }
