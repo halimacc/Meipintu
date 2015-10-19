@@ -1,5 +1,7 @@
 package me.chong.meipintu.ui.adapter;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.koushikdutta.ion.Ion;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +23,11 @@ import me.chong.meipintu.data.model.MeipinItem;
  */
 public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.ViewHolder> {
 
+    private Fragment fragment;
     private List<MeipinItem> mItems;
 
-    public MeipinItemAdapter() {
+    public MeipinItemAdapter(Fragment fragment) {
+        this.fragment = fragment;
         this.mItems = new ArrayList<>();
     }
 
@@ -35,8 +40,12 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         MeipinItem item = mItems.get(position);
         holder.tv_title.setText(item.title);
-        Ion.with(holder.iv_picture)
-                .load(item.pictureUri);
+        Glide.with(fragment)
+                .load(item.pictureUri)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .fitCenter()
+                .into(holder.iv_picture);
+
     }
 
     @Override

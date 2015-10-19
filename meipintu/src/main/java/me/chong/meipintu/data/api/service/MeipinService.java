@@ -12,6 +12,6 @@ import rx.Observable;
  */
 public interface MeipinService {
 
-    @GET("/index")
+    @GET("index")
     Observable<String> getMeipinItems(@Query("idx") int skip);
 }

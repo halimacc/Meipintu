@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import me.chong.meipintu.util.RetrofitUtil;
 import retrofit.Converter;
 
 /**
