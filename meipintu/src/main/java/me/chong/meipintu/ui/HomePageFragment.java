@@ -21,10 +21,7 @@ import rx.functions.Action0;
  */
 public class HomePageFragment extends Fragment {
 
-    private final int PAGE_SIZE = 5;
-
     private MeipinItemAdapter meipinItemAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     private Meipintu meipintu;
     private int currentIndex = 0;
@@ -50,37 +47,20 @@ public class HomePageFragment extends Fragment {
         return view;
     }
 
-    private boolean loading = false;
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
-
     private void initList(View view) {
         RecyclerView rv_meipin_list = (RecyclerView) view.findViewById(R.id.rv_meipin_list);
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_meipin_list.setLayoutManager(layoutManager);
-        meipinItemAdapter = new MeipinItemAdapter(this);
+        meipinItemAdapter = new MeipinItemAdapter(this, this::loadMoreItems);
         rv_meipin_list.setAdapter(meipinItemAdapter);
-        rv_meipin_list.addOnScrollListener(new OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+    }
 
-                visibleItemCount = layoutManager.getChildCount();
-                totalItemCount = layoutManager.getItemCount();
-                pastVisiblesItems = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
-
-                if (!loading) {
-                    if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                        loading = true;
-                        currentIndex += PAGE_SIZE;
-                        meipintu.getMeipinItem(currentIndex)
-                                .subscribe(meipinItems -> {
-                                            meipinItemAdapter.addAll(meipinItems.size() - 1, meipinItems);
-                                        }, Throwable::printStackTrace,
-                                        () -> loading = false);
-                    }
-                }
-            }
-        });
+    private void loadMoreItems() {
+        int PAGE_SIZE = 5;
+        currentIndex += PAGE_SIZE;
+        meipintu.getMeipinItem(currentIndex)
+                .subscribe(meipinItems -> meipinItemAdapter.addAll(meipinItemAdapter.getItemCount() - 1, meipinItems),
+                        Throwable::printStackTrace);
     }
 
 }
