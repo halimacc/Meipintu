@@ -1,23 +1,24 @@
 package me.chong.meipintu.ui.adapter;
 
-import android.graphics.drawable.AnimationDrawable;
-import android.os.Build;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.drawee.drawable.ProgressBarDrawable;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.chong.meipintu.R;
-import me.chong.meipintu.data.model.MeipinItem;
+import me.chong.meipintu.model.MeipinItem;
+import me.chong.meipintu.ui.PictureActivity;
+import me.chong.meipintu.util.GsonUtil;
 
 /**
  * Created by Chong on 2015/9/29.
@@ -48,12 +49,8 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
         if (!isFooter(position)) {
             MeipinItem item = mItems.get(position);
             holder.tv_title.setText(item.title);
-
-            Glide.with(fragment)
-                    .load(item.pictureUri)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .fitCenter()
-                    .into(holder.iv_picture);
+            holder.sdv_picture.setImageURI(Uri.parse(item.pictureUri));
+            holder.itemView.setTag(R.id.tag_key, item);
         }
     }
 
@@ -70,6 +67,7 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
             default:
             case TYPE_ITEM:
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meipin, parent, false);
+                view.setOnClickListener(this);
                 return new ViewHolder(false, view);
             case TYPE_FOOTER:
                 item_load_more = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_load_more, parent, false);
@@ -83,13 +81,21 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
         if (v == item_load_more) {
             if (mListener != null)
                 mListener.onLoadMore();
+            return;
+        }
+        int id = v.getId();
+        if (id == R.id.cv_meipin_item) {
+            MeipinItem item = (MeipinItem) v.getTag(R.id.tag_key);
+            Intent intent = new Intent(fragment.getContext(), PictureActivity.class);
+            intent.putExtra(PictureActivity.ARG_MEIPIN_ITEM, GsonUtil.toJson(item));
+            fragment.getContext().startActivity(intent);
         }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public boolean isFooter;
-        public ImageView iv_picture;
+        public SimpleDraweeView sdv_picture;
         public TextView tv_title;
 
         public ViewHolder(boolean isFooter, View itemView) {
@@ -97,7 +103,8 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
             this.isFooter = isFooter;
             if (!this.isFooter) {
                 tv_title = (TextView) itemView.findViewById(R.id.tv_title);
-                iv_picture = (ImageView) itemView.findViewById(R.id.iv_picture);
+                sdv_picture = (SimpleDraweeView) itemView.findViewById(R.id.sdv_picture);
+                sdv_picture.getHierarchy().setProgressBarImage(new ProgressBarDrawable());
             }
         }
     }

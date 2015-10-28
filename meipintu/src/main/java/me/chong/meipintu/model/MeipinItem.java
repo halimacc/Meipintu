@@ -1,4 +1,4 @@
-package me.chong.meipintu.data.model;
+package me.chong.meipintu.model;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -32,10 +32,17 @@ public class MeipinItem {
     // parse from html element div#feed_item
     public MeipinItem(Element root) {
         id = root.attr("id");
-        pictureUri = root.child(0)  // div#iten_inner
+
+        Element imga = root.child(0)  // div#item_inner
                 .child(0)   // div#item_img
-                .child(0)   // a
-                .child(0)   // img
+                .child(0);  // a
+
+        if (imga.attributes().hasKey("onmouseover")) {
+            pictureUri = imga.attr("onmouseover");
+            int start = pictureUri.indexOf(",") + 2;
+            int end = pictureUri.indexOf("'", start);
+            pictureUri = pictureUri.substring(start, end);
+        } else pictureUri = imga.child(0)   // img
                 .attr("src");
 
         Element item_info = root.child(0)   // div#item_inner

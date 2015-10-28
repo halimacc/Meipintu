@@ -1,20 +1,18 @@
-package me.chong.meipintu.ui;
+package me.chong.meipintu.ui.fragment;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import me.chong.meipintu.R;
-import me.chong.meipintu.data.api.Meipintu;
-import me.chong.meipintu.data.api.MeipintuRetrofit;
+import me.chong.meipintu.api.Meipintu;
+import me.chong.meipintu.api.MeipintuRetrofit;
 import me.chong.meipintu.ui.adapter.MeipinItemAdapter;
-import rx.functions.Action0;
 
 /**
  * A simple {@link Fragment} subclass.

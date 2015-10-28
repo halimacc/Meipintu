@@ -1,8 +1,8 @@
-package me.chong.meipintu.data.api;
+package me.chong.meipintu.api;
 
 import java.util.List;
 
-import me.chong.meipintu.data.model.MeipinItem;
+import me.chong.meipintu.model.MeipinItem;
 import rx.Observable;
 
 /**

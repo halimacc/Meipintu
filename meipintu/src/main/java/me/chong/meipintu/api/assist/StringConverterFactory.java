@@ -1,7 +1,4 @@
-package me.chong.meipintu.data.api.assist;
-
-import android.support.annotation.StringRes;
-import android.util.Xml;
+package me.chong.meipintu.api.assist;
 
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.ResponseBody;

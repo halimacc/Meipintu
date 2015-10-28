@@ -1,17 +1,12 @@
-package me.chong.meipintu.data.api;
+package me.chong.meipintu.api;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import me.chong.meipintu.data.api.assist.StringConverterFactory;
-import me.chong.meipintu.data.api.service.MeipinService;
-import me.chong.meipintu.data.model.MeipinItem;
-import retrofit.GsonConverterFactory;
+import me.chong.meipintu.api.assist.StringConverterFactory;
+import me.chong.meipintu.api.service.MeipinService;
+import me.chong.meipintu.model.MeipinItem;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
 import rx.Observable;

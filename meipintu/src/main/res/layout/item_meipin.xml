@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
+    xmlns:fresco="http://schemas.android.com/tools"
+    android:id="@+id/cv_meipin_item"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -30,12 +31,12 @@
             android:layout_height="1dp"
             android:background="#eeeeee" />
 
-        <ImageView
-            android:id="@+id/iv_picture"
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_picture"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="192dp"
+            android:layout_gravity="center_horizontal"
+            fresco:placeholderImage="@drawable/loading_roller" />
 
     </LinearLayout>
 
