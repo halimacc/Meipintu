@@ -18,6 +18,7 @@ import java.util.List;
 import me.chong.meipintu.R;
 import me.chong.meipintu.model.MeipinItem;
 import me.chong.meipintu.ui.PictureActivity;
+import me.chong.meipintu.ui.view.CustomProgressBar;
 import me.chong.meipintu.util.GsonUtil;
 
 /**
@@ -32,6 +33,8 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
     private List<MeipinItem> mItems;
     private OnLoadMoreListener mListener;
     private View item_load_more;
+
+    private boolean loading = false;
 
     public MeipinItemAdapter(Fragment fragment, OnLoadMoreListener listener) {
         this.fragment = fragment;
@@ -72,8 +75,19 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
             case TYPE_FOOTER:
                 item_load_more = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_load_more, parent, false);
                 item_load_more.setOnClickListener(this);
+                loading(loading);
                 return new ViewHolder(true, item_load_more);
         }
+    }
+
+    public boolean isLoading() {
+        return loading;
+    }
+
+    public void loading(boolean loading) {
+        this.loading = loading;
+        if (item_load_more != null)
+            item_load_more.findViewById(R.id.pb_loading).setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
     @Override

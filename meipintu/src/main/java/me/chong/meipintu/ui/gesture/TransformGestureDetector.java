@@ -1,8 +1,5 @@
 package me.chong.meipintu.ui.gesture;
 
-/**
- * Created by conra on 2015/10/29.
- */
 import android.view.MotionEvent;
 
 /**
