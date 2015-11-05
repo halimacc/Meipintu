@@ -5,7 +5,5 @@
 * [Fresco](https://github.com/facebook/fresco)
 * [Retrofit](https://github.com/square/retrofit)
 * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
-## About Me
-Contact me at harimabf@gmail.com
 
 
