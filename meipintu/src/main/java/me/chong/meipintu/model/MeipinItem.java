@@ -1,5 +1,7 @@
 package me.chong.meipintu.model;
 
+import android.net.Uri;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -13,7 +15,9 @@ import java.util.List;
 public class MeipinItem {
     public String id;
     public String title;
-    public String pictureUri;
+    public boolean isGif;
+    public String thumbnailUri;
+    public String uri;
 
     public static List<MeipinItem> fromHtml(String html) {
         List<MeipinItem> items = new ArrayList<>();
@@ -37,18 +41,21 @@ public class MeipinItem {
                 .child(0)   // div#item_img
                 .child(0);  // a
 
-        if (imga.attributes().hasKey("onmouseover")) {
-            pictureUri = imga.attr("onmouseover");
-            int start = pictureUri.indexOf(",") + 2;
-            int end = pictureUri.indexOf("'", start);
-            pictureUri = pictureUri.substring(start, end);
-        } else pictureUri = imga.child(0)   // img
+        this.thumbnailUri = imga.child(0)   // img
                 .attr("src");
+
+        if (imga.attributes().hasKey("onmouseover")) {
+            String tmp = imga.attr("onmouseover");
+            int start = tmp.indexOf(",") + 2;
+            int end = tmp.indexOf("'", start);
+            this.uri = tmp.substring(start, end);
+            this.isGif = true;
+        } else this.uri = this.thumbnailUri;
 
         Element item_info = root.child(0)   // div#item_inner
                 .child(1);  // div#item_info
 
-        title = item_info.child(1)  // h3
+        this.title = item_info.child(1)  // h3
                 .child(0)   // a
                 .attr("title");
     }

@@ -52,8 +52,9 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
         if (!isFooter(position)) {
             MeipinItem item = mItems.get(position);
             holder.tv_title.setText(item.title);
-            holder.sdv_picture.setImageURI(Uri.parse(item.pictureUri));
+            holder.sdv_picture.setImageURI(Uri.parse(item.thumbnailUri));
             holder.itemView.setTag(R.id.tag_key, item);
+            holder.tv_picture_hint.setVisibility(item.isGif ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -111,6 +112,7 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
         public boolean isFooter;
         public SimpleDraweeView sdv_picture;
         public TextView tv_title;
+        public TextView tv_picture_hint;
 
         public ViewHolder(boolean isFooter, View itemView) {
             super(itemView);
@@ -119,6 +121,7 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
                 tv_title = (TextView) itemView.findViewById(R.id.tv_title);
                 sdv_picture = (SimpleDraweeView) itemView.findViewById(R.id.sdv_picture);
                 sdv_picture.getHierarchy().setProgressBarImage(new ProgressBarDrawable());
+                tv_picture_hint = (TextView) itemView.findViewById(R.id.tv_picture_hint);
             }
         }
     }

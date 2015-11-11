@@ -12,6 +12,8 @@
     <string name="title_load_more">加载更多</string>
     <string name="title_activity_picture">PictureActivity</string>
 
+    <string name="text_gif">GIF</string>
+
     <item name="tag_key" type="id" />
 
 </resources>

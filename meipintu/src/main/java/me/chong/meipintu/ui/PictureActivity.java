@@ -38,7 +38,7 @@ public class PictureActivity extends AppCompatActivity {
         MeipinItem item = GsonUtil.fromJson(getIntent().getStringExtra(ARG_MEIPIN_ITEM), MeipinItem.class);
 
         DraweeController ctrl = Fresco.newDraweeControllerBuilder()
-                .setUri(Uri.parse(item.pictureUri))
+                .setUri(Uri.parse(item.uri))
                 .setAutoPlayAnimations(true)
                 .build();
 
@@ -49,7 +49,6 @@ public class PictureActivity extends AppCompatActivity {
 
         sdv_picture.setController(ctrl);
         sdv_picture.setHierarchy(hierarchy);
-
     }
 
 }
