@@ -52,6 +52,9 @@ public class MeipinItem {
             this.isGif = true;
         } else this.uri = this.thumbnailUri;
 
+        if (this.uri.contains(".gif"))
+            this.isGif = true;
+
         Element item_info = root.child(0)   // div#item_inner
                 .child(1);  // div#item_info
 

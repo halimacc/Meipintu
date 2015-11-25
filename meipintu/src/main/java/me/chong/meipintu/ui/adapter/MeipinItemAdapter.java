@@ -1,5 +1,6 @@
 package me.chong.meipintu.ui.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -72,12 +73,12 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
             case TYPE_ITEM:
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meipin, parent, false);
                 view.setOnClickListener(this);
-                return new ViewHolder(false, view);
+                return new ViewHolder(view, false, parent.getContext());
             case TYPE_FOOTER:
                 item_load_more = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_load_more, parent, false);
                 item_load_more.setOnClickListener(this);
                 loading(loading);
-                return new ViewHolder(true, item_load_more);
+                return new ViewHolder(item_load_more, true, null);
         }
     }
 
@@ -114,13 +115,13 @@ public class MeipinItemAdapter extends RecyclerView.Adapter<MeipinItemAdapter.Vi
         public TextView tv_title;
         public TextView tv_picture_hint;
 
-        public ViewHolder(boolean isFooter, View itemView) {
+        public ViewHolder(View itemView, boolean isFooter, Context context) {
             super(itemView);
             this.isFooter = isFooter;
             if (!this.isFooter) {
                 tv_title = (TextView) itemView.findViewById(R.id.tv_title);
                 sdv_picture = (SimpleDraweeView) itemView.findViewById(R.id.sdv_picture);
-                sdv_picture.getHierarchy().setProgressBarImage(new ProgressBarDrawable());
+                sdv_picture.getHierarchy().setProgressBarImage(new CustomProgressBar(context));
                 tv_picture_hint = (TextView) itemView.findViewById(R.id.tv_picture_hint);
             }
         }
